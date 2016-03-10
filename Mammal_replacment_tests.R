@@ -43,7 +43,6 @@ tef.mam.data.c <- tefMulClean(data = mydata, species_col_name = "species", trees
 tef.aves.test.n <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "aves", isotope = "nitrogen")
 
 
-
 #set the forumula
 formula.n <- delta15N ~ source.iso.15N + diet.type + habitat
 formula.c <- delta13C ~ source.iso.13C + diet.type + habitat
@@ -58,9 +57,6 @@ mammal.carbon.ind <- individual_replace(tef_data = tef.mam.data.c, isotope = "ca
 
 
 ######################################## calculate the species removal #############################################
-
-
-aves.nitrogen.species <- species_replace(tef_data = tef.aves.test.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior.tef)
 
 
 
