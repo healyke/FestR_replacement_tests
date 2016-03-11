@@ -40,8 +40,6 @@ tef.mam.data.n <- tefMulClean(data = mydata, species_col_name = "species", trees
 tef.mam.data.c <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "mammalia", isotope = "carbon")
 
 
-tef.aves.test.n <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "aves", isotope = "nitrogen")
-
 
 #set the forumula
 formula.n <- delta15N ~ source.iso.15N + diet.type + habitat

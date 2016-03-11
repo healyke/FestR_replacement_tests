@@ -1,5 +1,5 @@
 ########################################################################################################
-########################################### aves #############################################
+########################################### all #############################################
 ########################################################################################################
 rm(list=ls())
 
@@ -37,6 +37,9 @@ prior_tef <- list(R = list(V = 1/4, nu=0.002), G = list(G1=list(V = 1/4, nu=0.00
 tef.aves.data.n <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "aves", isotope = "nitrogen")
 tef.aves.data.c <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "aves", isotope = "carbon")
 
+tef.mam.data.n <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "mammalia", isotope = "nitrogen")
+tef.mam.data.c <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "mammalia", isotope = "carbon")
+
 
 
 
@@ -52,9 +55,21 @@ random <- ~ animal + sp.col + tissue
 ######################################## calculate the indavidual removal #############################################
 
 aves.nitrogen.ind <- individual_replace(tef_data = tef.aves.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_n")
+aves.nitrogen.ind.noiso <- individual_replace(tef_data = tef.aves.data.n, isotope = "nitrogen", formula = formula.n_noiso, random = random, prior = prior_tef, output.label = "aves_n_noiso", nitt = c(1200000),  thin = c(500),  burnin = c(200000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
 
 
 aves.carbon.ind <- individual_replace(tef_data = tef.aves.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_c")
+aves.carbon.ind.noiso <- individual_replace(tef_data = tef.aves.data.c, isotope = "carbon", formula = formula.c_noiso, random = random, prior = prior_tef, output.label = "aves_c_noiso", nitt = c(1200000),  thin = c(500),  burnin = c(200000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
+
+
+
+mammal.nitrogen.ind <- individual_replace(tef_data = tef.mam.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_n" )
+mammal.nitrogen.ind.noiso <- individual_replace(tef_data = tef.mam.data.n, isotope = "nitrogen", formula = formula.n_noiso, random = random, prior = prior_tef, output.label = "mam_n_noiso" , nitt = c(1200000),  thin = c(500),  burnin = c(200000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
+
+
+
+mammal.carbon.ind <- individual_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_c")
+mammal.carbon.ind.noiso <- individual_replace(tef_data = tef.mam.data.c, isotope = "nitrogen", formula = formula.c_noiso, random = random, prior = prior_tef, output.label = "mam_c_noiso", nitt = c(1200000),  thin = c(500),  burnin = c(200000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000) )
 
 
 
@@ -63,9 +78,21 @@ aves.carbon.ind <- individual_replace(tef_data = tef.aves.data.c, isotope = "car
 
 
 aves.nitrogen.species <- species_replace(tef_data = tef.aves.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_n")
+aves.nitrogen.species.noiso <- species_replace(tef_data = tef.aves.data.n, isotope = "nitrogen", formula = formula.n_noiso, random = random, prior = prior_tef, output.label = "aves_n_noiso", nitt = c(2400000),  thin = c(1000),  burnin = c(400000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
+
 
 aves.carbon.species <- species_replace(tef_data = tef.aves.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_c")
+aves.carbon.species.noiso <- species_replace(tef_data = tef.aves.data.c, isotope = "carbon", formula = formula.c_noiso, random = random, prior = prior_tef, output.label = "aves_c_noiso", nitt = c(2400000),  thin = c(1000),  burnin = c(400000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
 
+
+
+mammal.nitrogen.species <- species_replace(tef_data = tef.mam.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_n")
+mammal.nitrogen.species.noiso <- species_replace(tef_data = tef.mam.data.n, isotope = "nitrogen", formula = formula.n_noiso, random = random, prior = prior_tef, output.label = "mam_n_noiso", nitt = c(2400000),  thin = c(1000),  burnin = c(400000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
+
+
+
+mammal.carbon.species <- species_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_c")
+mammal.carbon.species.noiso <- species_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.c_noiso, random = random, prior = prior_tef, output.label = "mam_c_noiso", nitt = c(2400000),  thin = c(1000),  burnin = c(400000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
 
 
 

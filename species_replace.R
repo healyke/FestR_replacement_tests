@@ -6,7 +6,13 @@ species_replace <- function(tef_data,
 							formula = ~delta15N ~ source.iso.15N + diet.type + habitat,
 							random = ~ animal + sp.col + tissue,
 							prior,
-							output.label) {
+							output.label,
+							nitt = c(120000),
+							thin = c(50),  
+							burnin = c(20000), 
+							no.chains = c(2), 
+							convergence = c(1.1), 
+							ESS = c(1000)) {
 
 
 #####decide on the isotope###
@@ -49,7 +55,7 @@ for(i in 1:length(taxa_list)){
 
 	output <- paste(output.label,"spe_teff",j, tef_data_dropped[j,"animal"], sep = "_")
  
-	 mod  <- tefMcmcglmm(mulTree.data = tef_data_run, formula = formula, random.terms = random, prior = prior, output = output)
+	 mod  <- tefMcmcglmm(mulTree.data = tef_data_run, formula = formula, random.terms = random, prior = prior, output = output, nitt = nitt,  thin = thin,  burnin = burnin, no.chains = no.chains, convergence = convergence, ESS = ESS)
 	
 	
 		mod_full[[spec_list[i]]][[j]]<- mod$tef_global
