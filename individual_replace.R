@@ -5,7 +5,8 @@ individual_replace <- function(tef_data,
 							isotope = c("carbon","nitrogen"),
 							formula = ~delta15N ~ source.iso.15N + diet.type + habitat,
 							random = ~ animal + sp.col + tissue,
-							prior) {
+							prior,
+							output.label) {
 
 
 #####decide on the isotope###
@@ -34,7 +35,7 @@ for(i in 1:(length(tef_data$data[,1]))){
 	temp_mul$data <- rbind(replaced_indavidual, temp_mul$data)
 	temp_run <- temp_mul
 	
-	output <- paste("ind_teff",i, replaced_indavidual[1], sep = "_")
+	output <- paste(output.label,"ind_teff",i, replaced_indavidual[1], sep = "_")
 
 	 mod  <- tefMcmcglmm(mulTree.data = temp_run, formula = formula.n, random.terms = random, prior = prior, output = output)
  

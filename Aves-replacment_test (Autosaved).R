@@ -1,5 +1,5 @@
 ########################################################################################################
-########################################### mammal #############################################
+########################################### aves #############################################
 ########################################################################################################
 rm(list=ls())
 
@@ -36,11 +36,9 @@ prior_tef <- list(R = list(V = 1/4, nu=0.002), G = list(G1=list(V = 1/4, nu=0.00
 
 
 #clean up data 
-tef.mam.data.n <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "mammalia", isotope = "nitrogen")
-tef.mam.data.c <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "mammalia", isotope = "carbon")
+tef.aves.data.n <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "aves", isotope = "nitrogen")
+tef.aves.data.c <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "aves", isotope = "carbon")
 
-
-tef.aves.test.n <- tefMulClean(data = mydata, species_col_name = "species", trees =  combined.trees, taxonomic.class = "aves", isotope = "nitrogen")
 
 
 #set the forumula
@@ -51,25 +49,29 @@ random <- ~ animal + sp.col + tissue
 
 ######################################## calculate the indavidual removal #############################################
 
-mammal.nitrogen.ind <- individual_replace(tef_data = tef.mam.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_n" )
+aves.nitrogen.ind <- individual_replace(tef_data = tef.aves.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_n")
 
-mammal.carbon.ind <- individual_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_c")
+#aves.carbon.ind <- individual_replace(tef_data = tef.aves.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_c")
 
 
 ######################################## calculate the species removal #############################################
 
 
 
-mammal.nitrogen.species <- species_replace(tef_data = tef.mam.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_n")
+aves.nitrogen.species <- species_replace(tef_data = tef.aves.data.n, isotope = "nitrogen", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_n")
 
-mammal.carbon.species <- species_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_c")
+#aves.carbon.species <- species_replace(tef_data = tef.aves.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "aves_c")
 
 
 
 ###Plots
 #set up a list with the rigth order of factors.
-plot.lists.mam.n <- plot_list(tef.mam.data.n)
-plot.lists.mam.c <- plot_list(tef.mam.data.c)
+plot.lists.aves.n <- plot_list(tef.aves.data.n)
+plot.lists.aves.c <- plot_list(tef.aves.data.c)
+
+
+
+
 
 
 ###needs to finished

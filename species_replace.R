@@ -5,7 +5,8 @@ species_replace <- function(tef_data,
 							isotope = c("carbon","nitrogen"),
 							formula = ~delta15N ~ source.iso.15N + diet.type + habitat,
 							random = ~ animal + sp.col + tissue,
-							prior) {
+							prior,
+							output.label) {
 
 
 #####decide on the isotope###
@@ -46,7 +47,7 @@ for(i in 1:length(taxa_list)){
 
 	 
 
-	output <- paste("spe_teff",j, tef_data_dropped[j,"animal"], sep = "_")
+	output <- paste(output.label,"spe_teff",j, tef_data_dropped[j,"animal"], sep = "_")
  
 	 mod  <- tefMcmcglmm(mulTree.data = tef_data_run, formula = formula, random.terms = random, prior = prior, output = output)
 	
