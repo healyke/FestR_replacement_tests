@@ -30,3 +30,7 @@ for(i in 1:length(levels(as.factor(taxa_list)))){
 
 	}	
 }
+
+return(list(species.plot.list = species.plot.list, diet.plot.list = diet.plot.list, 
+			tissue.plot.list = tissue.plot.list, delta.plot.list = delta.plot.list, habitat.plot.list = habitat.plot.list))
+}
