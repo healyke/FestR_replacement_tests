@@ -48,7 +48,7 @@ formula.n <- delta15N ~ source.iso.15N + diet.type + habitat
 formula.c <- delta13C ~ source.iso.13C + diet.type + habitat
 
 formula.n_noiso <- delta15N ~  diet.type + habitat
-formula.c_noiso <- delta13C ~  diet.type + habitat
+formula.c_coiso <- delta13C ~  diet.type + habitat
 
 random <- ~ animal + sp.col + tissue
 
@@ -97,7 +97,7 @@ mammal.carbon.species.noiso <- species_replace(tef_data = tef.mam.data.c, isotop
 
 
 ###Plots
-Tef_plot(tef_data = aves.nitrogen.ind, ind.output = aves.nitrogen.ind$teff_diff, spc.output = aves.nitrogen.species, title.main = c('Aves Nitrogen TEF') )
+Tef_plot(tef_data = tef.aves.data.n, ind.output = aves.nitrogen.ind$teff_diff, spc.output = aves.nitrogen.species, title.main = c('Aves Nitrogen TEF'), xlim = c(0,8))
 
 
 

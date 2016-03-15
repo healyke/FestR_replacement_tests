@@ -43,7 +43,7 @@ for(i in 1:(length(tef_data$data[,1]))){
 	
 	output <- paste(output.label,"ind_teff",i, replaced_indavidual[1], sep = "_")
 
-	 mod  <- tefMcmcglmm(mulTree.data = temp_run, formula = formula.n, random.terms = random, prior = prior, output = output, nitt = nitt,  thin = thin,  burnin = burnin, no.chains = no.chains, convergence = convergence, ESS = ESS)
+	 mod  <- tefMcmcglmm(mulTree.data = temp_run, formula = formula, random.terms = random, prior = prior, output = output, nitt = nitt,  thin = thin,  burnin = burnin, no.chains = no.chains, convergence = convergence, ESS = ESS)
  
 	 teff_diff[i] <- diff(c(mean(mod$tef_global), tef_data$data[i, iso_term]))
 	 teff_full[[i]] <-mod$tef_global
