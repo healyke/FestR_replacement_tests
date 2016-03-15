@@ -97,56 +97,7 @@ mammal.carbon.species.noiso <- species_replace(tef_data = tef.mam.data.c, isotop
 
 
 ###Plots
-#set up a list with the rigth order of factors.
-plot.lists.aves.n <- plot_list(tef.aves.data.n)
-plot.lists.aves.c <- plot_list(tef.aves.data.c)
-
-
-
-
-
-
-###needs to finished
-dev.new()
-par(mfrow=c(2,3))
-
-
-par(mfrow=c(3,1))
-par(mar=c(0.1, 7, 0.1, 0.1) + 0.1)
-MultiDisPlot(mam_c_full, ylab = "Single observation estimate", xaxt = "n", xlab = "", bty = "n", ylim = c(-4,7))
-#add actual estimates
-points(seq(1:(length(mam_c_data $delta13C))), mam_c_data $delta13C, col = "red", pch = 16)
-
-par(mar=c(0.1, 7, 0.1, 0.1) + 0.1)
-MultiDisPlot(plot_mcd_full, ylab = "Species removal estimate", xaxt = "n", xlab = "", bty = "n", ylim = c(-4,7))
-#add actual estimates
-points(seq(1:(length(plot_mcd_species))), plot_mcd_delta, col = "red", pch = 16)
-
-mtext("Mammal Carbon TEF", side = c(2), at = c(8), las = 3, cex =1, line=5, font=2)
-
-
-mtext(mam_c_data$envirnment, side = c(1), at = c(seq(1:(length(plot_mcd_tissue)))), las = 3, cex =0.5, line=0.3)
-mtext("Env", side = c(1), at = c(-1), las = 3, cex =0.5, line=0.3, font=2)
-
-mtext(plot_mcd_tissue, side = c(1), at = c(seq(1:(length(plot_mcd_tissue)))), las = 3, cex =0.5, line=2)
-mtext("Tissue", side = c(1), at = c(-1), las = 3, cex =0.5, line=2, font=2)
-
-mtext(plot_mcd_diet, side = c(1), at = c(seq(1:(length(plot_mcd_diet)))), las = 3, cex =0.5, line= 4.5)
-mtext("Diet", side = c(1), at = c(-1), las = 3, cex =0.5, line=4.5, font=2)
-
-mtext(plot_mcd_species, side = c(1), at = c(seq(1:(length(plot_mcd_species)))), las = 3, cex =0.5, line=7.5)
-mtext("Species", side = c(1), at = c(-1), las = 3, cex =0.5, line=7.5, font=2)
-
-
-
-
-
-
-
-
-
-
-
+Tef_plot(tef_data = aves.nitrogen.ind, ind.output = aves.nitrogen.ind$teff_diff, spc.output = aves.nitrogen.species, title.main = c('Aves Nitrogen TEF') )
 
 
 
