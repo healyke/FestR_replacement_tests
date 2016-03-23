@@ -27,7 +27,7 @@ bird.trees   <- read.tree(system.file("extdata", "3firstJetzTrees.tre", package 
 
 # TG: I just created a subsample of the BIG trees (all sp) to make it faster
 #combine them together
-combined.trees <- tree.bind (x = mammal.trees, y = bird.trees, sample = 10, root.age = 250)
+combined.trees <- tree.bind (x = mammal.trees, y = bird.trees, sample = 3, root.age = 250)
 
 prior_tef <- list(R = list(V = 1/4, nu=0.002), G = list(G1=list(V = 1/4, nu=0.002),
 					G2=list(V = 1/4, nu=0.002), G3=list(V = 1/4, nu=0.002)))
@@ -93,6 +93,41 @@ mammal.nitrogen.species.noiso <- species_replace(tef_data = tef.mam.data.n, isot
 
 mammal.carbon.species <- species_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_c")
 mammal.carbon.species.noiso <- species_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.c_noiso, random = random, prior = prior_tef, output.label = "mam_c_noiso", nitt = c(2400000),  thin = c(1000),  burnin = c(400000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000))
+
+
+###if data needs to be read back in.
+
+t_Liabs <- list()
+
+model_grab <- list.files()
+model_gsub <- list()
+model_grab2 <- gsub("-tree.*\\.*","",model_grab,perl = TRUE)
+model_grab_aves_n_ind <- grep("aves_n_ind",model_grab2,perl = TRUE)
+model_grab_aves_n_ind <- model_grab2[model_grab_aves_n_ind]
+un_gsub <- unique(model_grab_aves_n_ind)
+
+
+
+t_Liabs <- list()
+for(i in 1:(length(un_gsub))){
+  
+t_Liabs[[i]] <-	read.mulTree(mulTree.chain= un_gsub[i], extract = "Liab")
+
+}
+
+
+plot_delta <- unlist(plot_list(tef.aves.data.n)$delta.plot.list)
+
+
+diff_mean <- list()
+diff_int <- list()
+for(i in 1:(length(plot_delta))){
+diff_mean[[i]] <- hdr(t_Liabs[[i]][[1]][,1])$mode - plot_delta[i]
+
+diff_int[[i]] <- hdr(t_Liabs[[i]][[1]][,1])$hdr - plot_delta[i]
+  
+}
+
 
 
 
