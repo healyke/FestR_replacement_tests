@@ -1,4 +1,5 @@
-plot_list <- function(tef_data){
+plot_list <- function(tef_data,
+                      isotope = c("carbon", "nitrogen")){
 
 species.plot.list <- list()
 diet.plot.list <- list()
@@ -25,7 +26,10 @@ for(i in 1:length(levels(as.factor(taxa_list)))){
 	species.plot.list[[spec_list[i]]][j] <-list(tef_data_comb_na[1,"animal"])
 	diet.plot.list[[spec_list[i]]][j] <-list(tef_data_comb_na[1,"diet.type"])
 	tissue.plot.list[[spec_list[i]]][j] <-list(tef_data_comb_na[1,"tissue"])
-	delta.plot.list[[spec_list[i]]][j] <-list(tef_data_comb_na[1,"delta15N"])
+	if(isotope == "carbon"){
+	  delta.plot.list[[spec_list[i]]][j] <-list(tef_data_comb_na[1,"delta13C"])
+	} else {
+	delta.plot.list[[spec_list[i]]][j] <-list(tef_data_comb_na[1,"delta15N"])}
 	habitat.plot.list[[spec_list[i]]][j] <-list(tef_data_comb_na[1,"habitat"])
 
 	}	

@@ -5,12 +5,19 @@ Tef_plot <- function(tef_data,
                      ind.output, 
                      spc.output,
                      title.main = c('TEF'),
-                     xlim = c(-4,8)){
+                     xlim = c(-4,8),
+                     direct = "FALSE",
+                     isotope = c("carbon", "nitrogen")){
   
-plot.lists <- plot_list(tef_data)
+plot.lists <- plot_list(tef_data, isotope = isotope)
 
-ind.plot <- ind.output$teff_full
+ind.plot <- ind.output
+if(direct == TRUE){
 spc.plot <- as.list(as.data.frame(spc.output$mod_full))
+} else{
+  spc.plot <- spc.output
+  
+}
 
 ###needs to finished
 dev.new()
@@ -20,7 +27,7 @@ par(mar=c(0.1, 0.1, 5, 0.1) + 0.1)
 plot.new()
 par(mar=c(0.1, 3, 5, 0.1) + 0.1)
 
-MultiDisPlot(ind.plot,  axes=FALSE ,ylab = "", bty = "n", xlim = c(-4,7))
+MultiDisPlot(ind.plot,  axes=FALSE ,ylab = "", bty = "n", xlim = xlim)
 axis(side = 3)
 mtext(c("individual replacment"), side = c(3),cex =0.7, line=2.3)
 #add actual estimates
@@ -40,7 +47,7 @@ mtext("Habitat", side = c(2), at = c(length(unlist(plot.lists$habitat.plot.list)
 
 par(mar=c(0.1, 2, 5, 1) + 0.1)
 #(bottem, left, top, rigth)
-MultiDisPlot(spc.plot,  axes=FALSE ,ylab = "", bty = "n", xlim = c(-4,7))
+MultiDisPlot(spc.plot,  axes=FALSE ,ylab = "", bty = "n", xlim = xlim)
 axis(side = 3)
 mtext(c("species replacment"), side = c(3),cex =0.7, line=2.3)
 points(seq(1:(length(unlist(plot.lists$delta.plot.list))))~ unlist(plot.lists$delta.plot.list), col = "red", pch = 16)

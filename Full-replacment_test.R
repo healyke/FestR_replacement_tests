@@ -68,7 +68,7 @@ mammal.nitrogen.ind.noiso <- individual_replace(tef_data = tef.mam.data.n, isoto
 
 
 
-mammal.carbon.ind <- individual_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.n, random = random, prior = prior_tef, output.label = "mam_c")
+mammal.carbon.ind <- individual_replace(tef_data = tef.mam.data.c, isotope = "carbon", formula = formula.c, random = random, prior = prior_tef, output.label = "mam_c")
 mammal.carbon.ind.noiso <- individual_replace(tef_data = tef.mam.data.c, isotope = "nitrogen", formula = formula.c_noiso, random = random, prior = prior_tef, output.label = "mam_c_noiso", nitt = c(1200000),  thin = c(500),  burnin = c(200000), no.chains = c(2), convergence =  c(1.1), ESS = c(1000) )
 
 
@@ -97,23 +97,8 @@ mammal.carbon.species.noiso <- species_replace(tef_data = tef.mam.data.c, isotop
 
 ###if data needs to be read back in.
 
-t_Liabs <- list()
-
-model_grab <- list.files()
-model_gsub <- list()
-model_grab2 <- gsub("-tree.*\\.*","",model_grab,perl = TRUE)
-model_grab_aves_n_ind <- grep("aves_n_ind",model_grab2,perl = TRUE)
-model_grab_aves_n_ind <- model_grab2[model_grab_aves_n_ind]
-un_gsub <- unique(model_grab_aves_n_ind)
-
-
-
-t_Liabs <- list()
-for(i in 1:(length(un_gsub))){
-  
-t_Liabs[[i]] <-	read.mulTree(mulTree.chain= un_gsub[i], extract = "Liab")
-
-}
+aves_c_spc <- read_tef(chain.name = "aves_c_spe", Tef.data = c(tef.aves.data.c), no.trees = c(10), no.chains = c(2))
+aves_c_ind <- read_tef(chain.name = "aves_c_ind", Tef.data = c(tef.aves.data.c), no.trees = c(3), no.chains = c(2))
 
 
 plot_delta <- unlist(plot_list(tef.aves.data.n)$delta.plot.list)
@@ -131,8 +116,9 @@ diff_int[[i]] <- hdr(t_Liabs[[i]][[1]][,1])$hdr - plot_delta[i]
 
 
 
+
 ###Plots
-Tef_plot(tef_data = tef.aves.data.n, ind.output = aves.nitrogen.ind$teff_diff, spc.output = aves.nitrogen.species, title.main = c('Aves Nitrogen TEF'), xlim = c(0,8))
+Tef_plot(tef_data = tef.aves.data.n, ind.output = aves_c_ind, spc.output = aves_c_spc, title.main = c('Aves Nitrogen TEF'), xlim = c(0,8))
 
 
 
