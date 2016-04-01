@@ -101,29 +101,50 @@ aves_c_spc <- read_tef(chain.name = "aves_c_spe", Tef.data = c(tef.aves.data.c),
 aves_c_ind <- read_tef(chain.name = "aves_c_ind", Tef.data = c(tef.aves.data.c), no.trees = c(3), no.chains = c(2))
 
 
-plot_delta <- unlist(plot_list(tef.aves.data.n)$delta.plot.list)
+mam_c_spc <- read_tef(chain.name = "mam_c_spe", Tef.data = c(tef.mam.data.c), no.trees = c(10), no.chains = c(2))
+mam_c_ind <- read_tef(chain.name = "mam_c_ind", Tef.data = c(tef.mam.data.c), no.trees = c(3), no.chains = c(2))
 
 
-diff_mean <- list()
-diff_int <- list()
-for(i in 1:(length(plot_delta))){
-diff_mean[[i]] <- hdr(t_Liabs[[i]][[1]][,1])$mode - plot_delta[i]
+aves_n_spc <- read_tef(chain.name = "aves_n_spe", Tef.data = c(tef.aves.data.n), no.trees = c(10), no.chains = c(2))
+aves_n_ind <- read_tef(chain.name = "aves_n_ind", Tef.data = c(tef.aves.data.n), no.trees = c(10), no.chains = c(2))
 
-diff_int[[i]] <- hdr(t_Liabs[[i]][[1]][,1])$hdr - plot_delta[i]
-  
-}
+
+mam_n_spc <- read_tef(chain.name = "mam_n_spe", Tef.data = c(tef.mam.data.n), no.trees = c(10), no.chains = c(2))
+mam_n_ind <- read_tef(chain.name = "mam_n_ind", Tef.data = c(tef.mam.data.n), no.trees = c(3), no.chains = c(2))
 
 
 
 
 
 ###Plots
-Tef_plot(tef_data = tef.aves.data.n, ind.output = aves_c_ind, spc.output = aves_c_spc, title.main = c('Aves Nitrogen TEF'), xlim = c(0,8))
+Tef_plot(tef_data = tef.aves.data.c, ind.output = aves_c_ind, spc.output = aves_c_spc, title.main = c('Aves Nitrogen TEF'), xlim = c(0,8))
+
+aves_c_ind_diff <- compare_tef(Tef.data = tef.aves.data.c, isotope = "carbon", Tef.output = aves_c_ind)
+aves_c_spc_diff <- compare_tef(Tef.data = tef.aves.data.c, isotope = "carbon", Tef.output = aves_c_spc)
+
+aves_n_ind_diff <- compare_tef(Tef.data = tef.aves.data.n, isotope = "nitrogen", Tef.output = aves_n_ind)
+aves_n_spc_diff <- compare_tef(Tef.data = tef.aves.data.n, isotope = "nitrogen", Tef.output = aves_n_spc)
+
+
+mam_c_ind_diff <- compare_tef(Tef.data = tef.mam.data.c, isotope = "carbon", Tef.output = mam_c_ind)
+mam_c_spc_diff <- compare_tef(Tef.data = tef.mam.data.c, isotope = "carbon", Tef.output = mam_c_spc)
+
+mam_n_ind_diff <- compare_tef(Tef.data = tef.mam.data.n, isotope = "nitrogen", Tef.output = mam_n_ind)
+mam_n_spc_diff <- compare_tef(Tef.data = tef.mam.data.n, isotope = "nitrogen", Tef.output = mam_n_spc)
 
 
 
+Tef.hist.plot( diff.mam.ind.c = mam_c_ind_diff,
+               diff.mam.ind.n = mam_n_ind_diff,
+               diff.aves.ind.c = aves_c_ind_diff,
+               diff.aves.ind.n = aves_n_ind_diff,
+               diff.mam.spc.c = mam_c_spc_diff,
+               diff.mam.spc.n = mam_n_spc_diff,
+               diff.aves.spc.c = aves_c_spc_diff,
+               diff.aves.spc.n = aves_n_spc_diff,
+               type = "full")
 
-
-
-
+#
+hdr.den(c(unlist(mam_n_spc_diff$diff_mean),unlist(aves_c_spc_diff$diff_mean),unlist(aves_n_spc_diff$diff_mean), unlist(mam_c_spc_diff$diff_mean)))
+hdr.den(c(unlist(mam_n_ind_diff$diff_mean),unlist(aves_c_ind_diff$diff_mean),unlist(aves_n_ind_diff$diff_mean), unlist(mam_c_ind_diff$diff_mean)))
 
